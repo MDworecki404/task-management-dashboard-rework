@@ -11,7 +11,7 @@ import keyboardarrowdown from "./assets/keyboardarrowdown.svg";
 import filters from "./assets/filters.svg";
 import home from "./assets/home.svg";
 import styled from "styled-components";
-import { useState, useEffect, useRef, ReactEventHandler } from "react";
+import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 
 const NavBar = styled.nav`
@@ -213,6 +213,7 @@ const ProjectsContainer = styled.section`
 
       header {
         width: 100%;
+        height: 15%;
         display: flex;
 
         h1 {
@@ -244,6 +245,38 @@ const ProjectsContainer = styled.section`
             align-items: center;
             border-radius: 30px;
             cursor: pointer;
+          }
+        }
+      }
+      .ProjectsContainer {
+        width: 100%;
+        height: 85%
+        display: flex;
+        flex-direction: row;
+
+        .ProjectState {
+          float: left;
+          width: 30%;
+          margin-left: 2.5%;
+          background-color: #f2f6fe;
+          border-radius: 30px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-top: 2.5%;
+          flex-direction: column;
+
+          input{
+            -webkit-appearance: none;
+
+            &::-webkit-slider-thumb{
+              -webkit-appearance: none;
+              appearance: none;
+              background-color: #754be5;
+              height: 0.5rem;
+              width: 1rem; 
+            }
+
           }
         }
       }
@@ -360,7 +393,14 @@ function App() {
     setTitles("");
     setDescriptions("");
   }
-
+  const progress = useRef<HTMLInputElement>(null);
+  function ProgressBar() {
+    if (progress.current) {
+      progress.current.style.background = `
+        linear-gradient(93deg, rgba(117,75,229,255) ${progress.current.value}%, rgba(255,255,255,1) ${progress.current.value}%)
+      `;
+    }
+  }
   function getUser() {
     fetch("https://randomuser.me/api/")
       .then((res) => res.json())
@@ -454,6 +494,14 @@ function App() {
                   <div className="ProjectState" key={index}>
                     <h1>{projects.title}</h1>
                     <h2>{projects.description}</h2>
+                    <input
+                      type="range"
+                      min={0}
+                      max={100}
+                      defaultValue={0}
+                      ref={progress}
+                      onChange={ProgressBar}
+                    ></input>
                   </div>
                 ))}
               </section>
