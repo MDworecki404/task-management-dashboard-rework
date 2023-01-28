@@ -5,7 +5,11 @@ import filedocument from "./assets/filedocument.svg";
 import mail from "./assets/mail.svg";
 import user from "./assets/user.svg";
 import search from "./assets/search.svg";
+import notifications from "./assets/notifications.svg";
+import calendar from "./assets/calendar.svg";
+import keyboardarrowdown from "./assets/keyboardarrowdown.svg";
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 
 const NavBar = styled.nav`
   min-width: 75px;
@@ -101,6 +105,7 @@ const MainContainer = styled.section`
       width: 40px;
       height: 50px;
       margin-left: 4%;
+      cursor: pointer;
 
       .line {
         width: 75%;
@@ -148,10 +153,46 @@ const MainContainer = styled.section`
         }
       }
     }
+
+    .user-menu {
+      width: 50%;
+      display: flex;
+      justify-content: right;
+      align-items: center;
+      img {
+        transform: translateX(0);
+        cursor: pointer;
+      }
+
+      .vLine {
+        width: 0px;
+        height: 32px;
+        outline: 2px solid #615d69;
+        margin-left: 6%;
+        margin-right: 5%;
+      }
+      .userPic {
+        border-radius: 100%;
+      }
+    }
   }
 `;
 
 function App() {
+  const [userPic, setUserPic] = useState();
+
+  function getUser() {
+    fetch("https://randomuser.me/api/")
+      .then((res) => res.json())
+      .then((data) => {
+        setUserPic(data.results[0].picture.thumbnail);
+      });
+  }
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <div id="App">
       <NavBar>
@@ -173,6 +214,13 @@ function App() {
           </div>
           <img src={search} alt="" />
           <input type="text" placeholder="Search"></input>
+          <div className="user-menu">
+            <img src={notifications} alt="" />
+            <img src={calendar} alt="" />
+            <div className="vLine"></div>
+            <img className="userPic" src={userPic} alt="" />
+            <img src={keyboardarrowdown} alt="" />
+          </div>
         </header>
       </MainContainer>
     </div>
