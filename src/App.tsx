@@ -257,17 +257,54 @@ const ProjectsContainer = styled.section`
         .ProjectState {
           float: left;
           width: 30%;
+          height: 20vh;
           margin-left: 2.5%;
           background-color: #f2f6fe;
           border-radius: 30px;
           display: flex;
           justify-content: center;
-          align-items: center;
+          align-items: left;
           margin-top: 2.5%;
           flex-direction: column;
+          position: relative;
+
+          &:nth-child(1){
+            margin-top: 0;
+          }
+          &:nth-child(2){
+            margin-top: 0;
+          }
+          &:nth-child(3){
+            margin-top: 0;
+          }
+          h1{
+            width: auto;
+            height: 36px;
+            border-radius: 30px;
+            color: #F07D13;
+            background-color: #ffefe1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 10%;
+            left: 5%;
+            font-size: 17px;
+            padding-left: 10px;
+            padding-right: 10px;
+          }
+          h2{
+            font-size: 12px;
+            color: #615D69;
+            margin-left: 5%;
+            margin-top: 10%;
+          }
 
           input{
             -webkit-appearance: none;
+            width: 80%;
+            margin-left: 10%;
+            margin-top: 10%;
 
             &::-webkit-slider-thumb{
               -webkit-appearance: none;
@@ -494,6 +531,7 @@ function App() {
                   <div className="ProjectState" key={index}>
                     <h1>{projects.title}</h1>
                     <h2>{projects.description}</h2>
+                    <span></span>
                     <input
                       type="range"
                       min={0}
