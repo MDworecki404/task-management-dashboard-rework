@@ -435,6 +435,7 @@ function App() {
     setProjects([...projects, { title: titles, description: descriptions }]);
     setTitles("");
     setDescriptions("");
+    gsap.to(".ProjectCreation", { delay: 0, duartion: 0, display: "none" });
   }
   const progress = useRef<HTMLInputElement>(null);
   function ProgressBar() {
