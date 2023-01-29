@@ -22,11 +22,12 @@ const NavBar = styled.nav`
 
   .NavBar__logo {
     width: 100%;
-    height: 10%;
+    height: 3%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 20%;
+    cursor: pointer;
 
     .circle {
       width: 20px;
@@ -81,6 +82,11 @@ const NavBar = styled.nav`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    .NavBar__menu--text {
+      color: white;
+      float: left;
+      opacity: 0;
+    }
 
     img {
       width: 32px;
@@ -456,6 +462,30 @@ function App() {
   function CloseProject() {
     gsap.to(".ProjectCreation", { delay: 0, duartion: 0, display: "none" });
   }
+  function OpenMenu() {
+    gsap.to(".NavBar", {
+      minWidth: "30%",
+      justifyContent: "start",
+    });
+    gsap.to(".NavBar__logo", {
+      marginTop: 10,
+    });
+    gsap.to(".NavBar__menu--text", {
+      opacity: 1,
+    });
+  }
+  function CloseMenu() {
+    gsap.to(".NavBar", {
+      minWidth: "75px",
+      justifyContent: "start",
+    });
+    gsap.to(".NavBar__logo", {
+      marginTop: 10,
+    });
+    gsap.to(".NavBar__menu--text", {
+      opacity: 0,
+    });
+  }
 
   return (
     <div id="App">
@@ -487,22 +517,28 @@ function App() {
           </form>
         </div>
       </ProjectCreation>
-      <NavBar>
-        <div className="NavBar__logo">
+      <NavBar className="NavBar">
+        <div className="NavBar__logo" onClick={CloseMenu}>
           <div className="circle"></div>
         </div>
         <div className="NavBar__menu">
           <img src={home} alt=""></img>
+          <span className="NavBar__menu--text">Home</span>
           <img src={user} alt="" />
+          <span className="NavBar__menu--text">Profile</span>
           <img src={mail} alt="" />
+          <span className="NavBar__menu--text">Inbox</span>
           <img src={clock} alt="" />
+          <span className="NavBar__menu--text">Deadlines</span>
           <img src={filedocument} alt="" />
+          <span className="NavBar__menu--text">Documents</span>
           <img src={cog} alt="" />
+          <span className="NavBar__menu--text">Settings</span>
         </div>
       </NavBar>
       <MainContainer>
         <header>
-          <div className="MainContainter__hamburger--menu">
+          <div className="MainContainter__hamburger--menu" onClick={OpenMenu}>
             <div className="line"></div>
           </div>
           <img src={search} alt="" />
